@@ -1,0 +1,147 @@
+<title>Project 2</title>
+
+<!-- copy and paste the next 2 lines to setup the sound files, you must modify the loadsoundchrome.js file with your sounds -->
+<script type="text/javascript" src="script/soundmanager2.js"></script>
+<script type="text/javascript" src="script/loadsoundchrome13.js"></script>
+<!-- Stop copying here -->
+
+<center>
+	<script type="text/javascript" src="script/processing-1.4.1.js"></script>
+	<script type="text/processing" data-processing-target="mycanvas">
+
+	/* @pjs globalKeyEvents ="true"; */
+
+PFont mario;
+PFont mario2;
+
+int playSound;
+int soundEffect;
+
+int mushroomX;
+
+void setup()
+{
+	size(720,480);
+	background(255,255,255);
+	frameRate(30);
+	
+	start0=loadImage("start.png");
+	start1=loadImage("start1.png");
+	start2=loadImage("start2.png");
+	start3=loadImage("start3.png");
+	start4=loadImage("start4.png");
+	start5=loadImage("start5.png");
+	start6=loadImage("start6.png");
+	shell1=loadImage("bshell1.png");
+	shell2=loadImage("bshell2.png");
+	shell3=loadImage("bshell3.png");
+	car1=loadImage("carBack1.png");
+	car2=loadImage("carBack2.png");
+	car3=loadImage("carBack3.png");
+	gameStartLogo=loadImage("startlogo.png");
+	gameStartLogo2=loadImage("startLogo2.png");
+	mushroom=loadImage("howC.png");
+	
+	mario=loadFont("Mario Kart DS");
+	mario2=loadFont("Super Mario 256");
+	playSound=0;
+	soundEffect=1;
+	
+	mushroomX=0;
+
+
+}
+
+void draw()
+{
+
+//background/////////////////////////////////
+	image(start0,0,0,720,480);
+	fill(255,255,0);
+	textFont(mario2,70);
+	text("MARIO",10,124);
+	fill(0,255,20);
+	text("CAR",298,127);
+	fill(255,0,0);
+	text("GAME",468,127);
+	fill(0,0,0);
+	text("MARIO",10,120);
+	fill(0,0,0);
+	text("CAR",298,123);
+	fill(0,0,0);
+	text("GAME",468,123);
+	
+	
+//music-------------------------------------
+	
+ //background
+	
+	if(playSound==0)
+		{
+			soundManager.play('s5');
+			playSound = 1;
+		}
+	
+
+	
+
+//Linking pages////////////////////////////////
+	image(gameStartLogo,210,200,279,63);
+	textFont(mario,40);
+	fill(255,100,0);
+	text("HOW TO PLAY",218,322);
+	fill(255,230,0);
+	text("HOW TO PLAY",220,324);
+	
+  //Start>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	if(210<mouseX && mouseX<490 &&
+		200<mouseY && mouseY<270)
+		{
+			image(gameStartLogo2,210,200,282,64);
+			
+		}
+		
+	if(mousePressed == true && mouseButton == LEFT)
+	{
+		if(210<mouseX && mouseX<490 &&
+		200<mouseY && mouseY<270)
+		{
+			
+			link("start.html");
+		}
+	}
+
+  //How to play>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	if(210<mouseX && mouseX<490 &&
+		290<mouseY && mouseY<332)
+		{
+			textFont(mario,40);
+			fill(255,80,0);
+			text("HOW TO PLAY",218,322);
+			fill(255,200,0);
+			text("HOW TO PLAY",220,325);
+			
+		}
+		
+	if(mousePressed == true && mouseButton == LEFT)
+	{
+		if(210<mouseX && mouseX<490 &&
+		290<mouseY && mouseY<332)
+		{
+			link("how to play.html");
+		}
+	}
+
+	image(mushroom,mushroomX,320,120,120);
+	mushroomX=mushroomX+10;
+	if(mushroomX>680)
+	{
+		mushroomX=0;
+	}
+
+
+}
+
+</script>
+	<canvas id="mycanvas"></canvas>
+</center>

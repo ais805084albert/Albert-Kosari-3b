@@ -1,0 +1,536 @@
+<title>Start</title>
+
+<!-- copy and paste the next 2 lines to setup the sound files, you must modify the loadsoundchrome.js file with your sounds -->
+<script type="text/javascript" src="script/soundmanager2.js"></script>
+<script type="text/javascript" src="script/loadsoundchrome13.js"></script>
+<!-- Stop copying here -->
+
+<center>
+	<script type="text/javascript" src="script/processing-1.4.1.js"></script>
+	<script type="text/processing" data-processing-target="mycanvas">
+
+	/* @pjs globalKeyEvents ="true"; */
+
+PFont mario;
+PFont mario2;
+
+int initialTime = 0;
+int newSecond = 0;
+int countDownToStart = 0;
+int minuteMultiplier = 0;
+int reversedTime = 0;
+boolean recordTime = false;
+boolean nextMinute = true;
+
+int playSound;
+int soundEffect;
+
+int moveLeftAndRight;
+int enemyCount;
+
+int startLogo;
+int startLogo2;
+int marioStart;
+
+int marioX;
+int marioY;
+int marioL;
+int marioW;
+
+int animateCounter;
+int animateRepeat;
+int timer;
+
+int animateGShell;
+int animateBShell;
+
+int bananaX;
+int bananaY;
+int bananaL;
+int bananaW;
+
+int shellX;
+int shellY;
+int shellL;
+int shellW;
+
+
+
+void setup()
+{
+	size(720,680);
+	background(255,255,255);
+	frameRate(30);
+	
+	redmario=loadImage("redmario.png");
+	arrow=loadImage("arrow.png");
+	startarrow=loadImage("startarrow.png");
+	howC=loadImage("howC.png");
+	howC2=loadImage("howC2.png");
+	banana2=loadImage("avatar.png");
+	start0=loadImage("start.png");
+	start1=loadImage("start2.png");
+	start2=loadImage("start3.png");
+	start3=loadImage("start4.png");
+	start4=loadImage("start5.png");
+	start5=loadImage("start6.png");
+	banana=loadImage("avatar.png");
+	
+	bshell1=loadImage("bshell1.png");
+	bshell2=loadImage("bshell2.png");
+	bshell3=loadImage("bshell3.png");
+	bshell4=loadImage("bshell4.png");
+	bshell5=loadImage("bshell5.png");
+	bshell6=loadImage("bshell6.png");
+	
+	gshell1=loadImage("gshell1.png");
+	gshell2=loadImage("gshell2.png");
+	gshell3=loadImage("gshell3.png");
+	gshell4=loadImage("gshell4.png");
+	gshell5=loadImage("gshell5.png");
+	gshell6=loadImage("gshell6.png");
+	
+	car1=loadImage("carBack1.png");
+	car2=loadImage("carBack2.png");
+	
+	
+	gameStartLogo=loadImage("startlogo.png");
+	gameStartLogo2=loadImage("startLogo2.png");
+	
+	
+	mario=loadFont("Mario Kart DS");
+	mario2=loadFont("Super Mario 256");
+
+	startLogo=1;
+	startLogo2=0;
+	marioStart=0;
+	playSound=0;
+	soundEffect=1;
+	
+	marioX=240
+	marioY=230
+	marioL=172
+	marioW=192
+	
+	countDownToStart=3;
+	animateCounter=0;
+	animateGShell=0;
+	animateBShell=0;
+	animateRepeat=0;
+	timer=0;
+	
+	moveLeftAndRight=0;
+	enemyCount=0;
+	
+	bananaX=250;
+	bananaY=210;
+	bananaL=41;
+	bananaW=40;
+	
+	shellX=370;
+	shellY=210;
+	shellL=34;
+	shellW=35;
+	
+	GshellX=300;
+	GshellY=210;
+	GshellL=34;
+	GshellW=35;
+	
+}
+
+void draw()
+{
+	background(255,255,255);
+
+//MUSIC>>>>>>>>>>>>>>>>>>>>>>>>>>
+		
+		if(playSound==0)
+			{
+				soundManager.play('s4');
+				playSound = 1;
+				soundManager.play('s6');
+			}
+	
+	
+	 
+	
+
+
+//background/////////////////////////////////
+// animate moving ground
+	
+	
+	if (animateCounter >= 0 && animateCounter <= 10)
+	{
+		image(start0,0,0,720,480);
+	}
+	if (animateCounter >= 10 && animateCounter <= 20)
+	{
+		image(start1,0,0,720,480);
+	}
+	if (animateCounter >= 20 && animateCounter <= 30)
+	{
+		image(start2,0,0,720,480);
+	}
+	if (animateCounter >= 30 && animateCounter <= 40)
+	{
+		image(start3,0,0,720,480);
+	}
+	if (animateCounter >= 40 && animateCounter <= 50)
+	{
+		image(start4,0,0,720,480);
+	}
+	if (animateCounter >= 50 && animateCounter <= 60)
+	{
+		image(start5,0,0,720,480);
+	}
+	
+	
+	
+	
+//repeating 5 and 6.........................................
+
+
+
+	if (animateCounter>=60)
+	{	
+		animateRepeat=animateRepeat+1;
+	}
+
+
+	if (animateRepeat >= 1 && animateRepeat <= 10)
+	{
+		image(start4,0,0,720,480);
+	}
+	if (animateRepeat >= 10 && animateRepeat <= 20)
+	{
+		image(start5,0,0,720,480);
+	}
+
+	if(animateRepeat==20)
+	{
+		animateRepeat=1;
+	}
+		
+	
+
+	
+
+
+
+	
+	
+
+//START THE GAME!!!!!!!!!!!!!!!!!!!!!!!!!!!	
+	
+	if(marioStart==0)
+	{
+		startLogo2=0;
+		startLogo=0;
+		timer=2;
+		
+ 	image(car1,marioX+random(3),marioY+random(3),marioL+random(3),marioW+random(3));
+			
+		if(countDownToStart>=0)
+		{
+			fill(0,0,0);
+			timer=1;
+			
+		}
+	
+		  if (second() == 0)
+			{
+				if (countDownToStart == 0)
+				{
+					minuteMultiplier = minuteMultiplier + 1;
+					countDownToStart = 5;				
+				}
+			}
+
+
+			if (recordTime == false)
+			{
+				recordTime = true;
+				initialTime = second();
+			}
+			//25..59   - 25
+			newSecond = minuteMultiplier*60 + second() - initialTime;
+			countDownToStart = 3 - newSecond;
+			
+	
+			
+			if(countDownToStart<0)
+			{
+				timer=2;
+				animateCounter=animateCounter+1;	
+				moveLeftAndRight=1;	
+						
+			}
+
+		
+		
+	}
+	
+	
+
+
+//variables/////////////////////////////////////
+	
+	if(startLogo==1)
+		{
+			image(gameStartLogo,130,180,479,131);
+		}
+		
+	if(startLogo2==1)
+	{
+		image(gameStartLogo2,130,180,485,137);
+		startLogo2=0;
+	}
+	
+	if(timer==1)
+	{
+		textFont(mario2,150);
+		text(countDownToStart,290,180);
+	}
+	
+	if(timer==2)
+	{
+		countDownToStart=-1;
+		fill(0,100,255);
+		textFont(mario2,95);
+		//text(enemyCount,635,90);
+		fill(0,0,0);
+		textFont(mario2,90);
+		//text(enemyCount,632,90);
+
+
+
+
+		//Shell and Banana///*********************************
+
+	
+		//BANANA/////////////////////////////	
+	
+		if(animateCounter>100)
+		{	
+			
+			image(banana,bananaX,bananaY,bananaL,bananaW);
+			bananaX=bananaX-(2);
+			bananaY=bananaY+(2);
+			bananaL=bananaL+(1);
+			bananaW=bananaW+(1);
+		
+		
+		}	
+	
+	
+		
+		if(bananaY>350)
+		{
+			
+			bananaX=250;
+			bananaY=210;
+			bananaL=41;
+			bananaW=40;
+		}
+	
+	
+		//BSHELL@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		
+		if(animateCounter>20)
+		{
+			shellX=shellX+2;
+			shellY=shellY+2;
+			shellL=shellL+1;
+			shellW=shellW+1;
+			
+			animateBShell=animateBShell+1;
+			
+				if (animateBShell >= 0 && animateBShell <= 4)
+				{
+					image(bshell1,shellX,shellY,shellL,shellW);
+				}
+				if (animateBShell >= 4 && animateBShell <= 8)
+				{
+					image(bshell2,shellX,shellY,shellL,shellW);
+				}
+				if (animateBShell >= 8 && animateBShell <= 12)
+				{
+					image(bshell3,shellX,shellY,shellL,shellW);
+				}
+				if (animateBShell >= 12 && animateBShell <= 16)
+				{
+					image(bshell4,shellX,shellY,shellL,shellW);
+				}
+				if (animateBShell >= 16 && animateBShell <= 20)
+				{
+					image(bshell5,shellX,shellY,shellL,shellW);
+				}
+				if (animateBShell >= 20 && animateBShell <= 24)
+				{
+					image(bshell6,shellX,shellY,shellL,shellW);
+				}
+				
+				if(animateBShell==24)
+				{
+					animateBShell=0;
+				}
+			
+				
+		}
+		
+	
+	
+		if(shellY>400)
+		{	
+			shellX=370;
+			shellY=210;
+			shellL=34;
+			shellW=35;
+			
+		}
+	
+		//GSHELL@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		
+		if(animateCounter>150)
+		{
+			GshellY=GshellY+2;
+			GshellL=GshellL+1;
+			GshellW=GshellW+1;
+			
+			animateGShell=animateGShell+1;
+			
+				if (animateGShell >= 0 && animateGShell <= 5)
+				{
+					image(gshell1,GshellX,GshellY,GshellL,GshellW);
+				}
+				if (animateGShell >= 5 && animateGShell <= 10)
+				{
+					image(gshell2,GshellX,GshellY,GshellL,GshellW);
+				}
+				if (animateGShell >= 10 && animateGShell <= 15)
+				{
+					image(gshell3,GshellX,GshellY,GshellL,GshellW);
+				}
+				if (animateGShell >= 15 && animateGShell <= 20)
+				{
+					image(gshell4,GshellX,GshellY,GshellL,GshellW);
+				}
+				if (animateGShell >= 20 && animateGShell <= 25)
+				{
+					image(gshell5,GshellX,GshellY,GshellL,GshellW);
+				}
+				if (animateGShell >= 25 && animateGShell <=30)
+				{
+					image(gshell6,GshellX,GshellY,GshellL,GshellW);
+				}
+				
+				if(animateGShell==30)
+				{
+					animateGShell=0;
+				
+				}
+		
+		}
+		
+	
+	
+		if(GshellY>400)
+		{	
+			GshellX=310;
+			GshellY=210;
+			GshellL=34;
+			GshellW=35;
+			
+		}
+	
+	
+
+	 	image(car1,marioX+random(3),marioY+random(3),marioL+random(3),marioW+random(3));
+
+		
+	}
+	
+	
+	
+//======================GAME OVER===========================
+
+
+	//text(sqrt(sq((marioX+80)-shellX)+sq((marioY+150)-shellY)),50,50);
+	//ellipse(marioX+80,marioY+150,50,50);
+ //ellipse(bananaX+30,bananaY+30,20,20);
+ 
+ //text((int)abs((GshellX+30)-(marioX+80)),10,600);
+//  text(marioX,300,600);
+ //  text((int)GshellY,300,600);
+
+	if (shellY > 320 && shellY < 350 && abs((shellX+30)-(marioX+80))<80)
+		{
+		
+				link("game over.html");
+				
+			
+		}
+		
+	if (bananaY > 320 && bananaY < 350 && abs((bananaX)-(marioX+80))<140 )
+		{
+		
+				link("game over.html");
+				
+			
+		}
+		
+		
+	if (GshellY > 320 && GshellY < 350 && abs((GshellX+30)-(marioX+80))<130)
+		{
+		
+				link("game over.html");
+				
+			
+		}
+
+	
+
+	
+	
+}
+void keyPressed()
+{
+	
+		if(moveLeftAndRight==1)
+		{
+			if (key == 'a')
+			{
+				marioX=marioX-30;
+	
+				if(marioX<30)
+				{
+					marioX=30;
+				}
+	
+			}
+		
+			if (key == 'd')
+			{
+				marioX=marioX+30;
+				
+				if(marioX>480)
+				{
+					marioX=480;
+				}
+			}
+		}	
+		
+		
+}
+
+
+
+
+
+
+
+</script>
+	<canvas id="mycanvas"></canvas>
+</center>
