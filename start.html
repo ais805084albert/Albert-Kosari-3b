@@ -54,7 +54,13 @@ int shellY;
 int shellL;
 int shellW;
 
+int animateLeft;
 
+PImage characterLeft[] = new PImage[10];
+PImage characterRight[] = new PImage[10];
+int variableN;
+int variableN2;
+int time;
 
 void setup()
 {
@@ -107,10 +113,10 @@ void setup()
 	playSound=0;
 	soundEffect=1;
 	
-	marioX=240
-	marioY=230
-	marioL=172
-	marioW=192
+	marioX=290;
+	marioY=290;
+	marioL=142;
+	marioW=162;
 	
 	countDownToStart=3;
 	animateCounter=0;
@@ -122,7 +128,7 @@ void setup()
 	moveLeftAndRight=0;
 	enemyCount=0;
 	
-	bananaX=250;
+	bananaX=270;
 	bananaY=210;
 	bananaL=41;
 	bananaW=40;
@@ -137,6 +143,31 @@ void setup()
 	GshellL=34;
 	GshellW=35;
 	
+	characterLeft[1] = loadImage("Test/MarioLeft 1.png");
+    characterLeft[2] = loadImage("Test/MarioLeft 2.png");
+    characterLeft[3] = loadImage("Test/MarioLeft 3.png");
+    
+    characterRight[1] = loadImage("Test/MarioRight 1.png");
+    characterRight[2] = loadImage("Test/MarioRight 2.png");
+    characterRight[3] = loadImage("Test/MarioRight 3.png");
+    
+    variableN = 1;
+    variableN2 = 1;
+
+    while(variableN <= 3)
+    {
+    characterLeft[variableN] = loadImage("Test/MarioLeft"+variableN+".png");
+    variableN = variableN + 1;
+    }
+
+    while(variableN2 <= 3)
+    {
+    characterLeft[variableN2] = loadImage("Test/MarioRight"+variableN2+".png");
+    variableN2 = variableN2 + 1;
+    }
+
+    time = 0;
+
 }
 
 void draw()
@@ -312,24 +343,23 @@ void draw()
 	
 		//BANANA/////////////////////////////	
 	
-		if(animateCounter>100)
+		if(animateCounter>90)
 		{	
 			
 			image(banana,bananaX,bananaY,bananaL,bananaW);
-			bananaX=bananaX-(2);
-			bananaY=bananaY+(2);
+			bananaX=bananaX-(1.8);
+			bananaY=bananaY+(1.1);
 			bananaL=bananaL+(1);
-			bananaW=bananaW+(1);
-		
-		
+			bananaW=bananaW+(0.75);
+		    
 		}	
 	
 	
 		
-		if(bananaY>350)
+		if(bananaY>320)
 		{
 			
-			bananaX=250;
+			bananaX=270;
 			bananaY=210;
 			bananaL=41;
 			bananaW=40;
@@ -338,12 +368,15 @@ void draw()
 	
 		//BSHELL@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		
-		if(animateCounter>20)
+		if(animateCounter>140)
 		{
-			shellX=shellX+2;
-			shellY=shellY+2;
-			shellL=shellL+1;
-			shellW=shellW+1;
+			shellX=shellX+0.8;
+			shellY=shellY+0.75;
+			shellL=shellL+0.5;
+			shellW=shellW+0.5;
+			
+			
+			  
 			
 			animateBShell=animateBShell+1;
 			
@@ -382,10 +415,10 @@ void draw()
 		
 	
 	
-		if(shellY>400)
+		if(shellY>340)
 		{	
 			shellX=370;
-			shellY=210;
+			shellY=random(200,220);
 			shellL=34;
 			shellW=35;
 			
@@ -393,11 +426,13 @@ void draw()
 	
 		//GSHELL@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		
-		if(animateCounter>150)
+		if(animateCounter>20)
 		{
-			GshellY=GshellY+2;
+			GshellY=GshellY+random(1.85,2.15);
 			GshellL=GshellL+1;
 			GshellW=GshellW+1;
+			
+			
 			
 			animateGShell=animateGShell+1;
 			
@@ -436,10 +471,10 @@ void draw()
 		
 	
 	
-		if(GshellY>400)
+		if(GshellY>370)
 		{	
 			GshellX=310;
-			GshellY=210;
+			GshellY= random(190,200);
 			GshellL=34;
 			GshellW=35;
 			
@@ -465,6 +500,7 @@ void draw()
 //  text(marioX,300,600);
  //  text((int)GshellY,300,600);
 
+	
 	if (shellY > 320 && shellY < 350 && abs((shellX+30)-(marioX+80))<80)
 		{
 		
@@ -508,7 +544,15 @@ void keyPressed()
 				{
 					marioX=30;
 				}
-	
+             	marioX=marioX-30;
+				  
+				if(marioX<30)
+				{
+					marioX=30;
+				}
+	            
+	            
+				
 			}
 		
 			if (key == 'd')
@@ -519,6 +563,12 @@ void keyPressed()
 				{
 					marioX=480;
 				}
+				if(marioX>480)
+				{
+					marioX=480;
+				}
+				
+				
 			}
 		}	
 		
